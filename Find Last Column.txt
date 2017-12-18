@@ -1,0 +1,19 @@
+Sub FindLastColumn()
+
+ 'Begin code block to find last column
+
+ Dim LastCol As Integer
+ Dim NewLastCol As Integer
+    LastCol = ActiveWorkbook.Worksheets("Sheet.Name").Range("A1").SpecialCells(xlCellTypeLastCell).Column
+    With ActiveWorkbook.Worksheets("Sheet.Name")
+    Dim i As Integer
+    Dim rng As Range
+    For i = 1 To LastCol
+    Set rng = ActiveWorkbook.Worksheets("Sheet.Name").Cells(1, i)
+    If InStr(1, ActiveWorkbook.Worksheets("Sheet.Name").Cells(1, i), colVal) <> 0 Then
+    NewLastCol = i
+    End If
+    Next i
+    End With
+
+ 'End code block to find last column
