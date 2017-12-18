@@ -1,0 +1,13 @@
+Sub ColorCells()
+
+'This macro checks the text in the cell and colors it Green if text is 'Yes' and red if text is 'No'
+
+    Sheets("Sheet.Name").Select
+    If Range("C38").Value = "Yes" Then
+    Range("C38").Interior.ColorIndex = 4
+    End If
+    If Range("C38").Value <> "Yes" Then
+    Range("C38").Interior.ColorIndex = 3
+    End If
+
+End Sub
