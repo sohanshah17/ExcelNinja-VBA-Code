@@ -1,0 +1,35 @@
+Sub CopySheet()
+'
+    Dim strMainWindowCaption As String
+    Dim strSourceWindowCaption As String
+    
+    'Save name of the file we're running the macro from.
+    strMainWindowCaption = ActiveWindow.Caption
+    
+    'Delete Existing data in destination sheet.
+    Windows(strMainWindowCaption).Activate
+    Sheets("Sheet.Name").Select
+    Range("A2:S120").ClearContents
+    
+    'Open the file and copy the data.
+    Workbooks.Open Filename:= _
+        "C:\Path\Sheet_Name.xls"
+    Range("A2", ActiveCell.SpecialCells(xlLastCell)).Select
+    Selection.Copy
+    'Save name of the file we're copying from.
+    strSourceWindowCaption = ActiveWindow.Caption
+    
+    'Switch to the destination window/sheet and paste.
+    Windows(strMainWindowCaption).Activate
+    Sheets("Sheet.Name").Select
+    Range("A4").Select
+    ActiveSheet.Paste
+    
+    'Some craziness to (nearly) empty the clipboard
+    Range("A1").Select
+    Selection.Copy
+    
+    'Close the opened file / window.
+    Windows(strSourceWindowCaption).Close
+        
+End Sub
