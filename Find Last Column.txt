@@ -1,6 +1,6 @@
 Sub FindLastColumn()
 
- 'Begin code block to find last column
+'Begin code block to find last column
 
  Dim LastCol As Integer
  Dim NewLastCol As Integer
@@ -16,4 +16,6 @@ Sub FindLastColumn()
     Next i
     End With
 
- 'End code block to find last column
+'End code block to find last column
+
+End Sub
