@@ -5,13 +5,13 @@ Sub Insert Column()
  'Begin code block to find last column
  Dim LastCol As Integer
  Dim NewLastCol As Integer
-    LastCol = ActiveWorkbook.Worksheets("Historical Data FT").Range("A1").SpecialCells(xlCellTypeLastCell).Column
-    With ActiveWorkbook.Worksheets("Historical Data FT")
+    LastCol = ActiveWorkbook.Worksheets("Sheet.Name").Range("A1").SpecialCells(xlCellTypeLastCell).Column
+    With ActiveWorkbook.Worksheets("Sheet.Name")
     Dim i As Integer
     Dim rng As Range
     For i = 1 To LastCol
-    Set rng = ActiveWorkbook.Worksheets("Historical Data FT").Cells(1, i)
-    If InStr(1, ActiveWorkbook.Worksheets("Historical Data FT").Cells(1, i), colVal) <> 0 Then
+    Set rng = ActiveWorkbook.Worksheets("Sheet.Name").Cells(1, i)
+    If InStr(1, ActiveWorkbook.Worksheets("Sheet.Name").Cells(1, i), colVal) <> 0 Then
     NewLastCol = i
     End If
     Next i
@@ -19,9 +19,9 @@ Sub Insert Column()
  'End code block to find last column
  
  'Insert new column to the left of the last column and copy values from last column into new column
-    ActiveWorkbook.Worksheets("Historical Data FT").Columns(NewLastCol).EntireColumn.Insert
-    ActiveWorkbook.Worksheets("Historical Data FT").Columns(NewLastCol + 1).Copy
-    ActiveWorkbook.Worksheets("Historical Data FT").Columns(NewLastCol).PasteSpecial xlPasteValues
-    ActiveWorkbook.Worksheets("Historical Data FT").Application.CutCopyMode = False
+    ActiveWorkbook.Worksheets("Sheet.Name").Columns(NewLastCol).EntireColumn.Insert
+    ActiveWorkbook.Worksheets("Sheet.Name").Columns(NewLastCol + 1).Copy
+    ActiveWorkbook.Worksheets("Sheet.Name").Columns(NewLastCol).PasteSpecial xlPasteValues
+    ActiveWorkbook.Worksheets("Sheet.Name").Application.CutCopyMode = False
 
 End Sub
