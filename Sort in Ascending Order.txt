@@ -1,0 +1,20 @@
+Sub SortSheet()
+'
+' Sort by particular column in ascending order (A-Z)
+
+    ActiveWorkbook.Worksheets("Sheet.Name").Sort.SortFields.Clear
+    ActiveWorkbook.Worksheets("Sheet.Name").Sort.SortFields.Add Key:=Range( _
+        "E4:E112"), SortOn:=xlSortOnValues, Order:=xlAscending, DataOption:= _
+        xlSortNormal
+    ActiveWorkbook.Worksheets("Sheet.Name").Sort.SortFields.Add Key:=Range( _
+        "D4:D112"), SortOn:=xlSortOnValues, Order:=xlAscending, DataOption:= _
+        xlSortNormal
+    With ActiveWorkbook.Worksheets("Sheet.Name").Sort
+        .SetRange Range("D3:BT112")
+        .Header = xlYes
+        .MatchCase = False
+        .Orientation = xlTopToBottom
+        .SortMethod = xlPinYin
+        .Apply
+    End With
+End Sub
