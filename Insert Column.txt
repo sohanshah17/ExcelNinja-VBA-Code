@@ -1,0 +1,27 @@
+Sub Insert Column()
+
+'Code to insert column before last column and copy values from last column to new column
+
+ 'Begin code block to find last column
+ Dim LastCol As Integer
+ Dim NewLastCol As Integer
+    LastCol = ActiveWorkbook.Worksheets("Historical Data FT").Range("A1").SpecialCells(xlCellTypeLastCell).Column
+    With ActiveWorkbook.Worksheets("Historical Data FT")
+    Dim i As Integer
+    Dim rng As Range
+    For i = 1 To LastCol
+    Set rng = ActiveWorkbook.Worksheets("Historical Data FT").Cells(1, i)
+    If InStr(1, ActiveWorkbook.Worksheets("Historical Data FT").Cells(1, i), colVal) <> 0 Then
+    NewLastCol = i
+    End If
+    Next i
+    End With
+ 'End code block to find last column
+ 
+ 'Insert new column to the left of the last column and copy values from last column into new column
+    ActiveWorkbook.Worksheets("Historical Data FT").Columns(NewLastCol).EntireColumn.Insert
+    ActiveWorkbook.Worksheets("Historical Data FT").Columns(NewLastCol + 1).Copy
+    ActiveWorkbook.Worksheets("Historical Data FT").Columns(NewLastCol).PasteSpecial xlPasteValues
+    ActiveWorkbook.Worksheets("Historical Data FT").Application.CutCopyMode = False
+
+End Sub
