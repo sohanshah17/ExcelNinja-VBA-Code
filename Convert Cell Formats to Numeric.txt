@@ -2,7 +2,7 @@ Sub ConvertFormatsToNumeric()
 
 ' Converts cell content format to numeric
 
-    Sheets("FT.Offers").Select
+    Sheets("Sheet.Name").Select
     Range("O4:P250").Select
     
     'specify the range which suits your purpose
