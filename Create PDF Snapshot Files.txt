@@ -1,0 +1,101 @@
+Sub CreatePDFSnapshotFiles()
+
+' Code to create PDF snapshots of excel sheets based on print area
+' The code first copies data from select sheets of an excel workbook into a new workbook
+' Cell contents are pasted as values
+' The PDF snapshots are then created from the new excel workbook
+
+    Dim strMainWindowCaption As String
+    Dim strDestWindowCaption As String
+    Dim strDestWorkbookName As String
+    Dim strFilePath As String
+    Dim strFileName As String
+    Dim strDateSuffix As String
+    
+    'Set up date string.
+    strDateSuffix = Format(Now, "yyyy-mm-dd")
+    
+    'Set up file names.
+    strFilePath = "C:\Path\PDFSnapshots"
+    strFileName = "2018_2019_PDFSnapshot_" & strDateSuffix
+    
+    'Save name of the file we're running the macro from.
+    strMainWindowCaption = ActiveWindow.Caption
+    
+    'Create a new Excel file.
+    Workbooks.Add
+    ChDir strFilePath
+    ActiveWorkbook.SaveAs Filename:=strFilePath & "\" & strFileName _
+        , FileFormat:=xlOpenXMLWorkbook, CreateBackup:=False
+    
+    'Save window and workbook names for new Excel file.
+    strDestWindowCaption = ActiveWindow.Caption
+    strDestWorkbookName = Workbooks(Workbooks.Count).Name
+        
+    'Copy first time just to get formatting.
+    Windows(strMainWindowCaption).Activate
+    Sheets("Sheet1").Select
+    Sheets("Sheet1").Copy Before:=Workbooks(strDestWorkbookName).Sheets(1)
+    Windows(strMainWindowCaption).Activate
+    Sheets("Sheet2").Select
+    Sheets("Sheet2").Copy After:=Workbooks(strDestWorkbookName).Sheets(1)
+    Windows(strMainWindowCaption).Activate
+    Sheets("Sheet3").Select
+    Sheets("Sheet3").Copy After:=Workbooks(strDestWorkbookName).Sheets(2)
+    Windows(strMainWindowCaption).Activate
+    Sheets("Sheet4").Select
+    Sheets("Sheet4").Copy After:=Workbooks(strDestWorkbookName).Sheets(3)
+    
+    'Copy / overwrite second time to get values.
+    Windows(strDestWindowCaption).Activate
+    Sheets("Sheet1").Select
+    Cells.Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Sheets("Sheet2").Select
+    Cells.Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    
+    Sheets("Sheet3").Select
+    Range("K1:K100").Select
+    '
+    'Cells.Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Columns("A:J").Select
+    Selection.Delete Shift:=xlToLeft
+    Sheets("Sheet4").Select
+    Cells.Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+
+
+    'Save!
+    Windows(strDestWorkbookName).Activate
+    Sheets("Sheet1").Select
+    ActiveWorkbook.Save
+    Windows(strDestWorkbookName).Activate
+    ActiveWindow.Close
+        
+    'Create PDF Files
+    
+    strFileName = "2018_2019_PDFSnapshot_" & strDateSuffix
+    Windows(strMainWindowCaption).Activate
+    Sheets("Sheet1").Activate
+    Sheets(Array("Sheet1", "Sheet2", "Sheet3", "Sheet4")).Select
+    ActiveSheet.ExportAsFixedFormat Type:=xlTypePDF, Filename:= _
+        strFilePath & "\" & strFileName _
+        , Quality:=xlQualityStandard, IncludeDocProperties:=True, IgnorePrintAreas _
+        :=False, OpenAfterPublish:=True
+
+        
+    'Go back to first sheet in dashboard
+    Sheets("Sheet.Name").Select
+    Range("A1").Select
+
+End Sub
