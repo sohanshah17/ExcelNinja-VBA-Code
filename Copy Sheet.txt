@@ -1,5 +1,7 @@
 Sub CopySheet()
-'
+
+'This code copies contents of a sheet from one Excel workbook to another
+
     Dim strMainWindowCaption As String
     Dim strSourceWindowCaption As String
     
