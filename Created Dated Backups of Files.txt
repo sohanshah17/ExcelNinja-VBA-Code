@@ -1,0 +1,31 @@
+Sub CreateDatedBackupOfFiles()
+
+'Code to create dated backups of files and store them in a backup folder
+'The dated backups are copies of the source data files
+
+Dim MyFilePath As String
+Dim MyTargetFolder As String
+Dim strFileName As String
+Dim strDateSuffix As String
+
+'Define source and destination file paths.
+MySourcePath = "C:\Path\Data Files\"
+MyDestPath = "C:\Path\Backup Folder\"
+           
+'Set up date string.
+strDateSuffix = Format(Now, "yyyy-mm-dd")
+    
+'Set up file name formats.
+strFileName1 = "File1 - " & strDateSuffix & ".xls"
+strFileName2 = "File2 - " & strDateSuffix & ".xls"
+strFileName3 = "File3 - " & strDateSuffix & ".xls"
+
+'Copy the file and then rename in destination.
+FileCopy MySourcePath & "File1.xls", MyDestPath & "File1.xls"
+Name MyDestPath & "File1.xls" As MyDestPath & strFileName1
+FileCopy MySourcePath & "File2.xls", MyDestPath & "File2.xls"
+Name MyDestPath & "File2.xls" As MyDestPath & strFileName2
+FileCopy MySourcePath & "File3.xls", MyDestPath & "File3.xls"
+Name MyDestPath & "File3.xls" As MyDestPath & strFileName3
+
+End Sub
