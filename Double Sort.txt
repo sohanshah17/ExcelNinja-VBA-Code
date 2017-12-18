@@ -1,0 +1,22 @@
+Sub DoubleSort()
+
+' Sort first by count and then in alphabetical order
+
+    Sheets("Sheet.Name").Select
+    ActiveWorkbook.Worksheets("Sheet.Name").Sort.SortFields.Clear
+    ActiveWorkbook.Worksheets("Sheet.Name").Sort.SortFields.Add Key:=Range( _
+        "E2:E100"), SortOn:=xlSortOnValues, Order:=xlDescending, DataOption:= _
+        xlSortNormal
+    ActiveWorkbook.Worksheets("Sheet.Name").Sort.SortFields.Add Key:=Range( _
+        "A2:A100"), SortOn:=xlSortOnValues, Order:=xlAscending, DataOption:= _
+        xlSortNormal
+    With ActiveWorkbook.Worksheets("Sheet.Name").Sort
+        .SetRange Range("A1:J100")
+        .Header = xlYes
+        .MatchCase = False
+        .Orientation = xlTopToBottom
+        .SortMethod = xlPinYin
+        .Apply
+    End With
+    
+End Sub
